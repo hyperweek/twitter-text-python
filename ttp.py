@@ -39,7 +39,7 @@ REPLY_REGEX = re.compile(ur'^(?:' + SPACES + ur')*' + AT_SIGNS \
               + ur'([a-z0-9_]{1,20}).*', re.IGNORECASE)
 
 # Hashtags
-HASHTAG_EXP = ur'(^|[^0-9A-Z&/]+)(#|\uff03)([0-9A-Z_]*[A-Z_]+[%s]*)' % UTF_CHARS
+HASHTAG_EXP = ur'(^|[^0-9A-Z&/]+)(#|\uff03)([%(uc)s]*[A-Z_]+[%(uc)s]*)' % {'uc': UTF_CHARS}
 HASHTAG_REGEX = re.compile(HASHTAG_EXP, re.IGNORECASE)
 
 
@@ -206,7 +206,6 @@ class Parser(object):
 
     def _parse_tags(self, match):
         '''Parse hashtags.'''
-
         mat = match.group(0)
 
         # Fix problems with the regex capturing stuff infront of the #

@@ -398,6 +398,11 @@ class TWPTests(unittest.TestCase):
         self.assertEqual(result.html, u'text <a href="http://search.twitter.com/search?q=%23hash_tag">#hash_tag</a>')
         self.assertEqual(result.tags, [u'hash_tag'])
 
+    def test_hashtag_start_with_accent(self):
+        result = self.parser.parse(u'text #été')
+        self.assertEqual(result.html, u'text <a href="http://search.twitter.com/search?q=%23%C3%A9t%C3%A9">#été</a>')
+        self.assertEqual(result.tags, [u'\xe9t\xe9'])
+
     # Username tests -----------------------------------------------------------
     # --------------------------------------------------------------------------
     def test_not_username_preceded_letter(self):
